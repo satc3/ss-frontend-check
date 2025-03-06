@@ -1,3 +1,75 @@
+# SmartSpend フロントエンド
+
+SmartSpendプロジェクトのフロントエンドリポジトリです。React、TypeScript、Viteを使用して開発されています。
+
+## 開発環境のセットアップ
+
+```bash
+# 依存関係のインストール
+bun install
+
+# 開発サーバーの起動
+bun run dev
+```
+
+## コーディング規約
+
+このプロジェクトでは、一貫性のあるコードベースを維持するために、特定のコーディング規約に従っています。詳細は以下のドキュメントを参照してください：
+
+- [コーディング規約](./docs/coding-standards.md) - 全般的なコーディング規約
+- [エイリアスパスの使用方法](./docs/エイリアスパスの使用方法.md) - インポートパスの使い方
+
+## 技術スタック
+
+- **フレームワーク**: React 19
+- **言語**: TypeScript
+- **ビルドツール**: Vite
+- **状態管理**: Redux Toolkit
+- **UIライブラリ**: Tailwind CSS
+- **ルーティング**: React Router
+- **フォーム管理**: React Hook Form
+- **バリデーション**: Zod
+- **HTTP通信**: Axios
+
+## プロジェクト構造
+
+```
+src/
+├── assets/        # 静的アセット（画像、フォントなど）
+├── components/    # 再利用可能なUIコンポーネント
+├── features/      # 機能別モジュール
+├── hooks/         # カスタムReact Hooks
+├── layouts/       # レイアウトコンポーネント
+├── lib/           # ライブラリコード（Axiosインスタンスなど）
+├── services/      # APIサービス
+├── store/         # Reduxストア
+├── types/         # TypeScript型定義
+└── utils/         # ユーティリティ関数
+```
+
+## 主要な開発コマンド
+
+```bash
+# 開発サーバーの起動
+bun run dev
+
+# プロダクションビルド
+bun run build
+
+# ビルド後のプレビュー
+bun run preview
+
+# リントチェック
+bun run lint
+
+# 型チェック
+bun run type-check
+```
+
+---
+
+オリジナルのViteテンプレートREADMEは以下の通りです：
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

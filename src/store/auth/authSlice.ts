@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import type { User, AuthError } from '../../types/auth';
-import { authService } from '../../services/auth';
+import type { User, AuthError } from '@/types/auth';
+import { authService } from '@/services/auth';
 import type { AxiosError } from 'axios';
 
 interface AuthState {
@@ -28,12 +28,12 @@ export const login = createAsyncThunk(
   'auth/login',
   async (credentials: { email: string; password: string }, { rejectWithValue }) => {
     try {
+      console.log('ログインアクション開始');
       const response = await authService.login(credentials);
-      // トークンとユーザー情報をローカルストレージに保存
-      localStorage.setItem('token', response.token);
-      localStorage.setItem('user', JSON.stringify(response.user));
+      console.log('ログインアクション成功:', response);
       return response;
     } catch (error) {
+      console.error('ログインアクション失敗:', error);
       const axiosError = error as AxiosError<AuthError>;
       return rejectWithValue(axiosError.response?.data || { message: 'ログインに失敗しました。' });
     }
@@ -45,8 +45,6 @@ export const register = createAsyncThunk(
   async (credentials: { name: string; email: string; password: string; password_confirmation: string }, { rejectWithValue }) => {
     try {
       const response = await authService.register(credentials);
-      // トークンをローカルストレージに保存
-      localStorage.setItem('token', response.token);
       return response;
     } catch (error) {
       const axiosError = error as AxiosError<AuthError>;
@@ -60,9 +58,6 @@ export const logout = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       await authService.logout();
-      // トークンとユーザー情報を削除
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
     } catch (error) {
       const axiosError = error as AxiosError<AuthError>;
       return rejectWithValue(axiosError.response?.data || { message: 'ログアウトに失敗しました。' });
@@ -75,13 +70,9 @@ export const getUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await authService.getUser();
-      // ユーザー情報を更新
-      localStorage.setItem('user', JSON.stringify(response.user));
       return response;
     } catch (error) {
       const axiosError = error as AxiosError<AuthError>;
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
       return rejectWithValue(axiosError.response?.data || { message: 'ユーザー情報の取得に失敗しました。' });
     }
   }
@@ -106,11 +97,13 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isAuthenticated = true;
         state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.token = action.payload.token || null;
+        console.log('Reduxストア更新 - ログイン成功:', { user: state.user, token: state.token });
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
+        console.error('Reduxストア更新 - ログイン失敗:', action.payload);
       })
       // Register
       .addCase(register.pending, (state) => {
@@ -121,7 +114,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isAuthenticated = true;
         state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.token = action.payload.token || null;
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
@@ -141,6 +134,9 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload.user;
         state.isAuthenticated = true;
+        if (action.payload.token) {
+          state.token = action.payload.token;
+        }
       })
       .addCase(getUser.rejected, (state) => {
         state.isLoading = false;

@@ -3,11 +3,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login } from '../../store/auth/authSlice';
-import { Input } from '../../components/ui/Input';
-import { Button } from '../../components/ui/Button';
-import type { AppDispatch } from '../../store';
-import type { AuthError } from '../../types/auth';
+import { login } from '@/store/auth/authSlice';
+import { Input } from '@/components/ui/Input';
+import { Button } from '@/components/ui/Button';
+import type { AppDispatch } from '@/store';
+import type { AuthError } from '@/types/auth';
 
 const schema = z.object({
   email: z.string()
@@ -33,11 +33,25 @@ export const LoginPage = () => {
 
   const onSubmit = async (data: LoginFormData) => {
     try {
+      console.log('ログインフォーム送信:', data);
       const result = await dispatch(login(data)).unwrap();
+      console.log('ログイン結果:', result);
+      
       if (result.token) {
+        console.log('認証トークンあり - ダッシュボードへリダイレクト');
         navigate('/dashboard');
+      } else if (result.user) {
+        console.log('ユーザー情報のみあり - ダッシュボードへリダイレクト');
+        navigate('/dashboard');
+      } else {
+        console.error('トークンもユーザー情報もありません');
+        setError('root', {
+          type: 'manual',
+          message: '認証情報が正しく返されませんでした。',
+        });
       }
     } catch (error) {
+      console.error('ログイン処理エラー:', error);
       const authError = error as AuthError;
       if (authError.message === 'Invalid credentials') {
         setError('root', {

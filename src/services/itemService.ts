@@ -1,5 +1,5 @@
-import api from './api';
-import { Item, ItemFormData, ItemFilters, PaginatedItems } from '../types/item';
+import api from '@/lib/axios';
+import { Item, ItemFormData, ItemFilters, PaginatedItems } from '@/types/item';
 
 // 商品一覧を取得
 export const getItems = async (filters: ItemFilters = {}): Promise<PaginatedItems> => {

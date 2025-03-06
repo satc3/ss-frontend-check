@@ -1,5 +1,5 @@
-import api from './api';
-import { Shop, ShopFormData, ShopFilters, PaginatedShops } from '../types/shop';
+import api from '@/lib/axios';
+import { Shop, ShopFormData, ShopFilters, PaginatedShops } from '@/types/shop';
 
 // 店舗一覧を取得
 export const getShops = async (filters: ShopFilters = {}): Promise<PaginatedShops> => {

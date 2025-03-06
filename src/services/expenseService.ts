@@ -1,5 +1,5 @@
-import api from './api';
-import { Expense, ExpenseFormData, ExpenseFilters, PaginatedExpenses, Category, PaymentMethod, Shop } from '../types/expense';
+import api from '@/lib/axios';
+import { Expense, ExpenseFormData, ExpenseFilters, PaginatedExpenses, Category, PaymentMethod, Shop } from '@/types/expense';
 
 // 支出一覧を取得
 export const getExpenses = async (filters: ExpenseFilters = {}): Promise<PaginatedExpenses> => {

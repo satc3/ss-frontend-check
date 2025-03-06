@@ -1,5 +1,5 @@
-import api from './api';
-import { Category, CategoryFormData, CategoryFilters, PaginatedCategories } from '../types/category';
+import api from '@/lib/axios';
+import { Category, CategoryFormData, CategoryFilters, PaginatedCategories } from '@/types/category';
 
 // カテゴリー一覧を取得
 export const getCategories = async (filters: CategoryFilters = {}): Promise<PaginatedCategories> => {

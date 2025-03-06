@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export default function Navbar() {
+export const Navbar = () => {
     return (
         <nav className="bg-white shadow">
             <div className="container mx-auto px-4">
@@ -44,4 +44,4 @@ export default function Navbar() {
             </div>
         </nav>
     );
-} 
+}; 

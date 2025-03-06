@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import logo from '../../assets/logo.svg';
+import logo from '@/assets/logo.svg';
 
 interface LogoProps {
   className?: string;

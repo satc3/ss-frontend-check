@@ -12,7 +12,12 @@ export default defineConfig({
       'types': path.resolve(__dirname, './src/types'),
       'features': path.resolve(__dirname, './src/features'),
       'hooks': path.resolve(__dirname, './src/hooks'),
-      'lib': path.resolve(__dirname, './src/lib')
+      'lib': path.resolve(__dirname, './src/lib'),
+      'assets': path.resolve(__dirname, './src/assets'),
+      'store': path.resolve(__dirname, './src/store'),
+      'utils': path.resolve(__dirname, './src/utils'),
+      'layouts': path.resolve(__dirname, './src/layouts'),
+      '@': path.resolve(__dirname, './src')
     }
   }
 })

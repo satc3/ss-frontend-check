@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { logout } from '../../store/auth/authSlice';
-import type { AppDispatch } from '../../store';
-import { Modal } from '../ui/Modal';
+import { logout } from '@/store/auth/authSlice';
+import type { AppDispatch } from '@/store';
+import { Modal } from '@/components/ui/Modal';
 import { useState } from 'react';
 
 interface HeaderProps {
